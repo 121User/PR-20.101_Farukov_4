@@ -46,12 +46,23 @@ namespace PR_20._101_Farukov_4
                 {
                     TextInfo upp = new CultureInfo("en-US", false).TextInfo;
 
+                    str = str.Replace("  ", " «ЭТО_ПРОБЕЛ» ");
+
                     str = Reverse(str);
-                    string result = upp.ToTitleCase(str);
+                    str = upp.ToTitleCase(str);
+                    str = Reverse(str);
 
-                    result = result.Replace("  ", " «это_пробел»");
+                    string[] mas = str.Split(' ');
+                    for(int i = 0; i<mas.Length; i++)
+                    {
+                        string word = mas[i];
+                        char c = word[0];
+                        word = word.Replace(c, upp.ToUpper(c));
+                        mas[i] = word;
+                    }
+                    str = string.Join(" ", mas);
 
-                    tb_Result.Text = result;
+                    tb_Result.Text = str;
                 }
                 else
                 {
